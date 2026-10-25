@@ -1,0 +1,83 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CALIFNCO Admin Panel</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: Arial, sans-serif; background: #f3f6fb; color: #172033; }
+    header { background: #073b4c; color: white; padding: 24px; }
+    header h1 { margin: 0 0 6px; }
+    main { max-width: 1000px; margin: 28px auto; padding: 0 16px; }
+    .cards { display: grid; grid-template-columns: repeat(auto-fit,minmax(180px,1fr)); gap: 16px; }
+    .card, section { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 2px 8px #0000000c; }
+    .card strong { display: block; font-size: 28px; margin-top: 10px; color: #087e8b; }
+    section { margin-top: 20px; }
+    input, select, button { padding: 11px; margin: 5px 4px 5px 0; border: 1px solid #ccd4df; border-radius: 6px; }
+    button { background: #087e8b; color: white; border: 0; cursor: pointer; }
+    button:hover { background: #05636d; }
+    .note { color: #596579; font-size: 14px; }
+    .order { border-top: 1px solid #e3e8ef; padding: 12px 0; }
+  </style>
+</head>
+<body>
+<header>
+  <h1>CALIFNCO Admin Panel</h1>
+  <div>Water Purifier Store Management</div>
+</header>
+<main>
+  <p class="note">Prototype dashboard — sample figures and orders are for demonstration only.</p>
+  <div class="cards">
+    <div class="card">Total Orders<strong id="total">3</strong></div>
+    <div class="card">Pending Orders<strong id="pending">2</strong></div>
+    <div class="card">Dealer Applications<strong id="dealers">1</strong></div>
+    <div class="card">Service Requests<strong id="services">2</strong></div>
+  </div>
+
+  <section>
+    <h2>Manage Demo Orders</h2>
+    <p class="note">These sample orders are not connected to live customer data.</p>
+    <div id="orders"></div>
+  </section>
+
+  <section>
+    <h2>Dealer Applications</h2>
+    <p>Demo Dealer — Application pending</p>
+    <button onclick="alert('Demo: dealer approved')">Approve</button>
+    <button onclick="alert('Demo: dealer rejected')">Reject</button>
+  </section>
+
+  <section>
+    <h2>Service Desk</h2>
+    <p>Demo service request — Water purifier maintenance</p>
+    <button onclick="alert('Demo: service request marked as contacted')">Mark Contacted</button>
+  </section>
+</main>
+<script>
+  const sampleOrders = [
+    { id: "DEMO-1001", item: "RO Water Purifier", status: "Pending" },
+    { id: "DEMO-1002", item: "Replacement Filter", status: "Processing" },
+    { id: "DEMO-1003", item: "Water Dispenser", status: "Pending" }
+  ];
+
+  function renderOrders() {
+    document.getElementById("orders").innerHTML = sampleOrders.map((order, index) =>
+      `<div class="order"><strong>${order.id}</strong> — ${order.item}
+      <p>Status: <span id="status-${index}">${order.status}</span></p>
+      <button onclick="changeStatus(${index}, 'Approved')">Approve</button>
+      <button onclick="changeStatus(${index}, 'Rejected')">Reject</button></div>`
+    ).join("");
+  }
+
+  function changeStatus(index, status) {
+    sampleOrders[index].status = status;
+    renderOrders();
+  }
+
+  renderOrders();
+</script>
+</body>
+</html>
+cd califnco-admin
